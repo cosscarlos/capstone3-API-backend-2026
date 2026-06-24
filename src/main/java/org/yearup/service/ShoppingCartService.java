@@ -38,5 +38,23 @@ public class ShoppingCartService
         return shoppingCart;
     }
 
+    public ShoppingCart addProductToCart(int userId, int productId, int quantity){
+        CartItem existingItem = shoppingCartRepository.findByUserIdAndProductId(userId, productId);
+
+        if (existingItem != null){
+            existingItem.setQuantity(existingItem.getQuantity() + quantity);
+            shoppingCartRepository.save(existingItem);
+        } else {
+            CartItem newItem = new CartItem();
+            newItem.setUserId(userId);
+            newItem.setProductId(productId);
+            newItem.setQuantity(quantity);
+            shoppingCartRepository.save(newItem);
+
+        }
+
+        return getByUserId(userId);
+    }
+
     // add additional methods here
 }
