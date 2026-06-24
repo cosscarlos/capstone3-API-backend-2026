@@ -56,5 +56,9 @@ public class ShoppingCartService
         return getByUserId(userId);
     }
 
+    public ShoppingCart clearCart (int userId){
+        shoppingCartRepository.deleteByUserId(userId);
+        return getByUserId(userId);
+    }
     // add additional methods here
 }
