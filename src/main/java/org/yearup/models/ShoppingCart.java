@@ -22,9 +22,13 @@ public class ShoppingCart
         return items.containsKey(productId);
     }
 
-    public void add(CartItem item)
+    public void add(CartItem cartItem)
     {
-        items.put(item.getProductId(), item);
+        ShoppingCartItem item = new ShoppingCartItem();
+        item.setProduct(cartItem.getProduct());
+        item.setQuantity(cartItem.getQuantity());
+
+        items.put(cartItem.getProductId(), item);
     }
 
     public ShoppingCartItem get(int productId)
