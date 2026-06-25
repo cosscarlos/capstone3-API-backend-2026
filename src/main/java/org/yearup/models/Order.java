@@ -16,20 +16,23 @@ public class Order {
     private Long id;
 
     @Column(name = "user_id")
-    private Long UserId;
+    private Long userId;
 
-    @Column(name = "ser_id")
+    @Column(name = "total_price")
     private Double totalPrice;
 
     @CreationTimestamp
     private LocalDateTime createdAt;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderLineItem> orderItems;
+
+    public Order() {
+    }
 
     public Order(Long id, Long userId, Double totalPrice, LocalDateTime createdAt, List<OrderLineItem> orderItems) {
         this.id = id;
-        UserId = userId;
+        this.userId = userId;
         this.totalPrice = totalPrice;
         this.createdAt = createdAt;
         this.orderItems = orderItems;
@@ -44,11 +47,11 @@ public class Order {
     }
 
     public Long getUserId() {
-        return UserId;
+        return userId;
     }
 
     public void setUserId(Long userId) {
-        UserId = userId;
+        userId = userId;
     }
 
     public Double getTotalPrice() {
